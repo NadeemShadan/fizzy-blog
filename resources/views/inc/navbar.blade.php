@@ -7,6 +7,8 @@
 <li class="active"><a href="/">Home</a></li>
 <li><a href="/register">Register</a></li>
 <li><a href="/services">Services</a></li>
+<li><a href="/trees">View users</a></li>
+
 </ul>
 <form class="navbar-form navbar-left">
 <div class="input-group">

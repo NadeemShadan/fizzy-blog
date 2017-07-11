@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tress;
 
 class TreesController extends Controller
 {
@@ -13,7 +14,8 @@ class TreesController extends Controller
      */
     public function index()
     {
-        //
+        $userDetails=Tress::orderBy('title','desc')->paginate(10);
+        return view('appmain.index')->with('usersData',$userDetails);
     }
 
     /**
@@ -23,7 +25,7 @@ class TreesController extends Controller
      */
     public function create()
     {
-        //
+        return view('appmain.create');
     }
 
     /**
@@ -34,7 +36,11 @@ class TreesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+        'title'=>'required',
+        'body'=>'required']);
+
+        return "in future";
     }
 
     /**
@@ -45,7 +51,8 @@ class TreesController extends Controller
      */
     public function show($id)
     {
-        //
+        $singleUser= Tress::find($id);
+        return view('appmain.singleDetail')->with('singleDetail',$singleUser);
     }
 
     /**
