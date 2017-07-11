@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FormsController@index');
+Route::get('/register', 'FormsController@register');
+Route::get('/services', 'FormsController@services');
+Route::resource('trees','TreesController');
