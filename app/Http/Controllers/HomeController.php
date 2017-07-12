@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tress;
-
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $postCount=Tress::where('user_id',1)->get()->count();
-        return view('home')->with('count',$postCount);
+        $user_id=Auth::user()->id;
+        $user=User::find($user_id);
+        return view('home')->with('user',$user->Tress);
     }
 }

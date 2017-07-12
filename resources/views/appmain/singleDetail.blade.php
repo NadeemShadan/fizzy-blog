@@ -8,6 +8,7 @@
             <hr>
             <small>{{$singleDetail->created_at}}</small><br>
             <a href="/trees" class="btn btn-info">Go Back</a>
+            @if(!Auth::guest())
             <div class="pull-right">
                 {!!Form::open(['action'=>['TreesController@destroy',$singleDetail->id,'method'=>'POST']])!!}
                 <a href="/trees/{{$singleDetail->id}}/edit" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -16,6 +17,7 @@
                 {!!Form::close()!!}
 
             </div>
+        @endif
 
 
 @endsection

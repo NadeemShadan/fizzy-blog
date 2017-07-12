@@ -11,7 +11,7 @@
                 </div>
                 <div class="panel-body">
                     bios Saved
-                    <span class="badge pull-right">{{$count}}</span>
+                    <span class="badge pull-right">{{count($user)}}</span>
                 </div>
             </div>
         </div>
@@ -27,6 +27,25 @@
                     {!!Auth::user()->email!!}
                 </div>
             </div>
+        </div>
+        <div class="col-md-6 jumbotron">
+            <h2>
+            {!!Auth::user()->name!!}'s bios
+            </h2>
+            <ul class="col-md-12 list-group">
+                @foreach($user as $post)
+                <li class="list-group-item"><a href="/trees/{{$post->id}}">{{$post->title}}</a><span class="pull-right">{!!Form::open(['action'=>['TreesController@destroy',$post->id,'method'=>'POST']])!!}
+                <a href="/trees/{{$post->id}}/edit" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
+                {!!Form::Hidden('_method','DELETE')!!}
+                {!!Form::Button('<i class="glyphicon glyphicon-trash"></i>',['type'=>'submit','class'=>'btn btn-danger']) !!}
+                {!!Form::close()!!}</span></li>
+            @endforeach
+        {{-- @else
+            <h2>
+            {!!Auth::user()->name!!} haven't created any bios
+            </h2>
+        @endif --}}
+            </ul>
         </div>
     </div>
 </div>

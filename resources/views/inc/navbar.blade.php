@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Fizzy Bios') }}
+                <i class="glyphicon glyphicon-book"></i>
             </a>
         </div>
 

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tress;
+use Illuminate\Support\Facades\Auth;
 
 class TreesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +31,7 @@ class TreesController extends Controller
      */
     public function create()
     {
-        return view('appmain.create');
+            return view('appmain.create');
     }
 
     /**
@@ -43,7 +49,7 @@ class TreesController extends Controller
         $user=new Tress;
         $user->title=$request->input('title');
         $user->body=$request->input('body');
-        $user->user_id=auth()->user->id();
+        $user->user_id=auth()->user()->id;
         $user->save();
         return redirect('/trees')->with('success','Bio Added');
     }
