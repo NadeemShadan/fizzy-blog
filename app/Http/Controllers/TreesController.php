@@ -14,7 +14,7 @@ class TreesController extends Controller
      */
     public function index()
     {
-        $userDetails=Tress::orderBy('title','desc')->paginate(10);
+        $userDetails=Tress::orderBy('created_at','desc')->paginate(10);
         return view('appmain.index')->with('usersData',$userDetails);
     }
 
@@ -40,7 +40,12 @@ class TreesController extends Controller
         'title'=>'required',
         'body'=>'required']);
 
-        return "in future";
+        $user=new Tress;
+        $user->title=$request->input('title');
+        $user->body=$request->input('body');
+        $user->user_id=auth()->user->id();
+        $user->save();
+        return redirect('/trees')->with('success','Bio Added');
     }
 
     /**
@@ -63,7 +68,8 @@ class TreesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $singleUser= Tress::find($id);
+        return view('appmain.editSingle')->with('singleDetail',$singleUser);
     }
 
     /**
@@ -75,7 +81,15 @@ class TreesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+        'title'=>'required',
+        'body'=>'required']);
+
+        $user=Tress::find($id);
+        $user->title=$request->input('title');
+        $user->body=$request->input('body');
+        $user->save();
+        return redirect('/trees')->with('success','Bio Edited');
     }
 
     /**
@@ -86,6 +100,9 @@ class TreesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=Tress::find($id);
+        $user->delete();
+        return redirect('/trees')->with('error','Bio Removed');
+
     }
 }

@@ -15,3 +15,11 @@ Route::get('/', 'FormsController@index');
 Route::get('/register', 'FormsController@register');
 Route::get('/services', 'FormsController@services');
 Route::resource('trees','TreesController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

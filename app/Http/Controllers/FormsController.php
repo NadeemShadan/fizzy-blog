@@ -15,8 +15,7 @@ class FormsController extends Controller
         return view('forms.Register')->with('vue',$name);
     }
     public function services(){
-        $name='Nadeem Shadan';
-        return view('forms.services')->with('name',$name);
+        return view('forms.services');
     }
 
 
