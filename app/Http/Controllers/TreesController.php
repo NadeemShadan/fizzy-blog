@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tress;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TreesController extends Controller
 {
@@ -44,11 +45,23 @@ class TreesController extends Controller
     {
         $this->validate($request,[
         'title'=>'required',
-        'body'=>'required']);
+        'body'=>'required',
+        'cover_image'=>'image|nullable|max:1999']);
 
+        if ($request->hasFile('cover_image')) {
+            $filename=$request->file('cover_image')->getClientOriginalName();
+            $filename=pathinfo($filename,PATHINFO_FILENAME);
+            $extension=$request->file('cover_image')->getClientOriginalExtension();
+            $filename=$filename.'__'.time().'.'.$extension;
+            $path=$request->file('cover_image')->storeAs('public/cover_images',$filename);
+        }
+        else {
+            $fileName="default.jpg";
+        }
         $user=new Tress;
         $user->title=$request->input('title');
         $user->body=$request->input('body');
+        $user->cover_image=$filename;
         $user->user_id=auth()->user()->id;
         $user->save();
         return redirect('/trees')->with('success','Bio Added');
@@ -75,6 +88,10 @@ class TreesController extends Controller
     public function edit($id)
     {
         $singleUser= Tress::find($id);
+        if (auth()->user()->id !== $singleUser->user_id) {
+            return redirect('/trees')->with('error',"You are not authorized to access that page");
+
+        }
         return view('appmain.editSingle')->with('singleDetail',$singleUser);
     }
 
@@ -89,11 +106,21 @@ class TreesController extends Controller
     {
         $this->validate($request,[
         'title'=>'required',
-        'body'=>'required']);
-
+        'body'=>'required',
+        'cover_image'=>'image|nullable|max:1999']);
+        if ($request->hasFile('cover_image')) {
+            $filename=$request->file('cover_image')->getClientOriginalName();
+            $filename=pathinfo($filename,PATHINFO_FILENAME);
+            $extension=$request->file('cover_image')->getClientOriginalExtension();
+            $filename=$filename.'__'.time().'.'.$extension;
+            $path=$request->file('cover_image')->storeAs('public/cover_images',$filename);
+        }
         $user=Tress::find($id);
         $user->title=$request->input('title');
         $user->body=$request->input('body');
+        if ($request->hasFile('cover_image')) {
+            $user->cover_image=$filename;
+        }
         $user->save();
         return redirect('/trees')->with('success','Bio Edited');
     }
@@ -106,7 +133,11 @@ class TreesController extends Controller
      */
     public function destroy($id)
     {
+
         $user=Tress::find($id);
+        if ($user->cover_image!=='default.jpg') {
+            Storage::delete('public/cover_images/'.$user->cover_image);
+        }
         $user->delete();
         return redirect('/trees')->with('error','Bio Removed');
 

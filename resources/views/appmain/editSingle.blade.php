@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Edit {{$singleDetail->title}}'s Bio</h1>
-    {!! Form::open(['action'=>['TreesController@update',$singleDetail->id],'POST']) !!}
+    {!! Form::open(['action'=>['TreesController@update',$singleDetail->id],'POST','enctype'=>'multipart/form-data']) !!}
     <div class="form-group">
         {{Form::label('title','Title')}}
         {{Form::text('title',$singleDetail->title,['class'=>'form-control','placeholder'=>'Enter User Name'])}}
@@ -10,6 +10,9 @@
     <div class="form-group">
         {{Form::label('body','Body')}}
         {{Form::textarea('body',$singleDetail->body,['id'=>'article-ckeditor','class'=>'form-control','placeholder'=>'Enter user info here'])}}
+    </div>
+    <div class="form-group">
+        {{Form::file('cover_image')}}
     </div>
     {{Form::hidden('_method','PUT')}}
     {{Form::submit('Save Changes',['class'=>'btn btn-success'])}}
