@@ -25,9 +25,11 @@
                 <hr>
                 <div class="panel-body">
                     {!!Auth::user()->email!!}
+
                 </div>
             </div>
         </div>
+        <example></example>
         <div class="col-md-6 jumbotron">
             <h2>
             {!!Auth::user()->name!!}'s bios
