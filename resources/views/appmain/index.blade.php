@@ -13,4 +13,14 @@
     @else
         <p>There's no one in here try adding someone</p><br>
     @endif
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+        new Vue({
+            el:"#app",
+            data: {
+            message: 'Hello Vue!'
+            }
+        })
+
+    </script>
 @endsection
