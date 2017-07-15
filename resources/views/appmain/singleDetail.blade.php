@@ -2,7 +2,7 @@
 
 @section('content')
             <div class="jumbotron text-center">
-                    <small><img src="/storage/cover_images/{{$singleDetail->cover_image}}" class="img-circle">
+                    <small><img src="/storage/cover_images/{{$singleDetail->cover_image}}" class="img-responsive img-circle">
                         </small>
                 <h3>{{$singleDetail->title}}</h3>
                 <p>{!!$singleDetail->body!!}</p>

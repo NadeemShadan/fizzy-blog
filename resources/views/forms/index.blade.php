@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
+<div id="app">
     <h1>
             Welcome
     </h1>
+    <post-message></post-message>
     <small>In Here you can save bios, or even make quick notes</small>&#9787;
     @if(!Auth::user())
     <div class="jumbotron text-center">
@@ -18,4 +20,5 @@
         </h1>
 @endif
     </div>
+</div>
 @endsection

@@ -21,8 +21,9 @@ class TreesController extends Controller
      */
     public function index()
     {
-        $userDetails=Tress::orderBy('created_at','desc')->paginate(10);
-        return view('appmain.index')->with('usersData',$userDetails);
+        $userDetails=Tress::orderBy('created_at','desc')->paginate(5);
+        return $userDetails;
+        // return view('appmain.index')->with('usersData',$userDetails);
     }
 
     /**
@@ -56,7 +57,7 @@ class TreesController extends Controller
             $path=$request->file('cover_image')->storeAs('public/cover_images',$filename);
         }
         else {
-            $fileName="default.jpg";
+            $filename="default.jpg";
         }
         $user=new Tress;
         $user->title=$request->input('title');

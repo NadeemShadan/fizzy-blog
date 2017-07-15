@@ -12,3 +12,7 @@ Route::get('/test',function(){
     'lastName'=>'Shadan'
 ]]);
 });
+
+Route::group(['middleware'=>'auth:api'],function(){
+    Route::resource('bios','TreesController');
+});

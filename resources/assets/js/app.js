@@ -16,11 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('post-message', require('./components/chatMessage.vue'));
 
 const app = new Vue({
-    el: '#app',
-    data:{
-        message:"This is generated from vue"
-    }
-
+    el: '#app'
 });
